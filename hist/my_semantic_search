@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Read history from the history file directly
+HISTFILE="${HISTFILE:-$HOME/.bash_history}"
+
+if [ -f "$HISTFILE" ]; then
+    if [ -n "$1" ]; then
+        # Filter history by the search term
+        grep -i "$1" "$HISTFILE" | tail -50
+    else
+        # Show recent history if no search term
+        tail -50 "$HISTFILE"
+    fi
+else
+    # Fallback to history command if HISTFILE doesn't exist
+    history | tail -50
+fi
+
